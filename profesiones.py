@@ -1,4 +1,4 @@
-def prof_eleccion():
+def listar_profesiones():
 
     profesiones=[
         "1. Médico",
@@ -40,12 +40,13 @@ def prof_eleccion():
         "37. Otro"
     ]
 
-    print("Selecciones una profesión")
+    print("Seleccione una profesión")
     for profesion in profesiones:
         print(profesion)
-    eleccion = int(input("Ingrese el número de la profesión que desea elegir: "))
-    if eleccion==37 :
-        prof_otro=input("Ingrese su profesión:")
-    while 1<eleccion>37:
+
+
+def validar_eleccion(eleccion):
+    
+    while eleccion<1 and eleccion>37:
         eleccion = int(input("Opción inválida. Ingrese un número entre 1 y 37: "))
 
