@@ -1,17 +1,18 @@
-def listar_origen_fondos():
-
-    tipos_origen_fondos=[
+TIPOS_ORIGEN_FONDOS=[
         "1. Bienes inmuebles",
         "2. Bienes muebles",
         "3. Depósitos y cuentas bancarias",
         "4. Inversiones financieras",
         "5. Activos empresariales",
-        "6. Dinero en efectivo no declarado",
-        "7. Objetos de valor"
+        "6. Pesos en efectivo",
+        "7. Moneda extranjera en efectivo",
+        "8. Objetos de valor",
     ]
+        
+def listar_origen_fondos():
 
     print("Selecciona cuál es tu origen de fondo a declarar")
-    for origen_de_fondo in tipos_origen_fondos:
+    for origen_de_fondo in TIPOS_ORIGEN_FONDOS:
         print(origen_de_fondo)
 
 def validar_lista_origen(fondo):

@@ -1,6 +1,5 @@
-def listar_profesiones():
 
-    profesiones=[
+PROFESIONES=[
         "1. Médico",
         "2. Enfermero/a",
         "3. Dentista",
@@ -40,8 +39,10 @@ def listar_profesiones():
         "37. Otro"
     ]
 
+def listar_profesiones():
+
     print("Seleccione una profesión")
-    for profesion in profesiones:
+    for profesion in PROFESIONES:
         print(profesion)
 
 
