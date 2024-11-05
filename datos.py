@@ -1,11 +1,10 @@
 from fechas import validar_fecha
 from profesiones import listar_profesiones,validar_eleccion,PROFESIONES
 from tipos_origen_de_fondos import listar_origen_fondos,validar_lista_origen, TIPOS_ORIGEN_FONDOS
-from datetime import datetime
+from comparacion_de_fechas import retornar_fecha_mas_antigua, retornar_fecha_mas_reciente
 
 def ingresar_datos():
 
-    lista_fechas_decla =[]
     fecha_mas_antigua = None
     fecha_mas_reciente = None
 
@@ -56,12 +55,16 @@ def ingresar_datos():
         print("Su profesión es:",PROFESIONES[eleccion-1])
 
         fecha_decla=input("Ingrese la fecha de declaración (DD/MM/AAAA): ")
-        fecha_decla= datetime.strptime(fecha_decla, "%d/%m/%Y")
         validar_fecha(fecha_decla)
-        lista_fechas_decla.append(fecha_decla)
-        if lista_fechas_decla:
-            fecha_mas_antigua = min(lista_fechas_decla)
-            fecha_mas_reciente = max(lista_fechas_decla)
+        if fecha_mas_antigua == None:
+            fecha_mas_antigua = fecha_decla
+        else:
+            fecha_mas_antigua = retornar_fecha_mas_antigua(fecha_mas_antigua, fecha_decla)
+
+        if fecha_mas_reciente == None:
+            fecha_mas_reciente = fecha_decla
+        else:
+            fecha_mas_reciente = retornar_fecha_mas_reciente(fecha_mas_reciente, fecha_decla)
 
         monto_decla=float(input("Ingrese el monto a declarar: "))
         while monto_decla < 0 :
