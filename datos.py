@@ -1,10 +1,13 @@
 from fechas import validar_fecha
 from profesiones import listar_profesiones,validar_eleccion,PROFESIONES
 from tipos_origen_de_fondos import listar_origen_fondos,validar_lista_origen, TIPOS_ORIGEN_FONDOS
+from datetime import datetime
 
 def ingresar_datos():
 
-    fechas=[]
+    lista_fechas_decla =[]
+    fecha_mas_antigua = None
+    fecha_mas_reciente = None
 
     contadorDeContribuyentes = 0
 
@@ -27,11 +30,11 @@ def ingresar_datos():
 
         apellido=input("Ingrese su apellido: ")
         while apellido=='':
-            apellido=input("Por favor, escriba su nombre para continuar: ")
+            apellido=input("Por favor, escriba su apellido para continuar: ")
 
         dni=(input("Ingrese su D.N.I.: "))
         while dni=='':
-            dni=input("Por favor, escriba su nombre para continuar: ")
+            dni=input("Por favor, escriba su D.N.I. para continuar: ")
 
         fecha_naci=input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
         validar_fecha(fecha_naci)
@@ -51,12 +54,18 @@ def ingresar_datos():
         if eleccion==37 :
             prof_otro=input("Ingrese su profesión:")
         print("Su profesión es:",PROFESIONES[eleccion-1])
-       
+
         fecha_decla=input("Ingrese la fecha de declaración (DD/MM/AAAA): ")
+        fecha_decla= datetime.strptime(fecha_decla, "%d/%m/%Y")
         validar_fecha(fecha_decla)
-        fechas.append(fecha_decla)
+        lista_fechas_decla.append(fecha_decla)
+        if lista_fechas_decla:
+            fecha_mas_antigua = min(lista_fechas_decla)
+            fecha_mas_reciente = max(lista_fechas_decla)
 
         monto_decla=float(input("Ingrese el monto a declarar: "))
+        while monto_decla < 0 :
+            monto_decla=float(input("Monto invalido, Ingrese un monto valido: "))            
         if menorMonto == 0 or menorMonto > monto_decla:
             menorMonto = monto_decla
         if mayorMonto < monto_decla:
@@ -74,8 +83,8 @@ def ingresar_datos():
     print(f"La menor edad registrada en el ingreso de datos es de: {menorEdad} años.")
     print(f"La mayor edad registrada en el ingreso de datos es de: {mayorEdad} años.")
     print(f"La edad promedio en el ingreso de datos es de: {acumuladorDeEdad / contadorDeContribuyentes} años.")
-    #fecha mas antigua
-    #fecha mas cercana
+    print(f"La fecha de declaración más lejana en el ingreso de datos es: {fecha_mas_antigua}")
+    print(f"La fecha de declaración más cercana en el ingreso de datos es: {fecha_mas_reciente}")
     print(f"El menor monto declarado es de: ${menorMonto}, el mayor es de ${mayorMonto} y el promedio es de ${acumuladorDeMonto / contadorDeContribuyentes}")
     
 
