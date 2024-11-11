@@ -25,21 +25,28 @@ def ingresar_datos():
 
         nombre=input("Ingrese su nombre: ")
         while nombre=='':
-            nombre=input("Por favor, escriba su nombre para continuar: ")
+            nombre=input("Por favor, ingrese su nombre para continuar: ")
 
         apellido=input("Ingrese su apellido: ")
         while apellido=='':
-            apellido=input("Por favor, escriba su apellido para continuar: ")
+            apellido=input("Por favor, ingrese su apellido para continuar: ")
 
         dni=(input("Ingrese su D.N.I.: "))
         while dni=='':
-            dni=input("Por favor, escriba su D.N.I. para continuar: ")
+            dni=input("Por favor, ingrese su D.N.I. para continuar: ")
 
         fecha_naci=input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
+        while fecha_naci=='':
+            fecha_naci=input("Por favor, ingrese su fecha de nacimiento para continuar (DD/MM/AAAA): ")
         validar_fecha(fecha_naci)
 
-        edad=int(input("Ingrese su edad: "))
-        while edad<17:
+#nuevo
+        edad=input("Ingrese su edad: ")
+        while edad== '':
+            edad=input("Por favor, ingrese su edad para continuar: ")
+        edad=int(edad)
+            
+        if edad<17:
             edad=int(input("No puede declarar siendo menor de edad. Intentelo de nuevo: "))
         if menorEdad == 0 or menorEdad > edad:
             menorEdad = edad
@@ -47,12 +54,16 @@ def ingresar_datos():
             mayorEdad = edad
         acumuladorDeEdad = acumuladorDeEdad + edad
 
+#nuevo
         listar_profesiones()
         eleccion = int(input("Ingrese el número de la profesión que desea elegir: "))
         validar_eleccion(eleccion)
         if eleccion==37 :
             prof_otro=input("Ingrese su profesión:")
-        print("Su profesión es:",PROFESIONES[eleccion-1])
+            print("Su profesión es: ",prof_otro)
+        elif eleccion>0 or eleccion<37:
+            print("Su profesión es: ",PROFESIONES[eleccion-1])
+
 
         fecha_decla=input("Ingrese la fecha de declaración (DD/MM/AAAA): ")
         validar_fecha(fecha_decla)

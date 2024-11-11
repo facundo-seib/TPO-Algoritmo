@@ -45,9 +45,8 @@ def listar_profesiones():
     for profesion in PROFESIONES:
         print(profesion)
 
-
+#nuevo
 def validar_eleccion(eleccion):
     
-    while eleccion<1 and eleccion>37:
+    while eleccion<1 or eleccion>37:
         eleccion = int(input("Opción inválida. Ingrese un número entre 1 y 37: "))
-
