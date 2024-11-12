@@ -42,6 +42,12 @@ def ingresar_datos():
 
     while(continuar == 'siguiente'):
         contadorDeContribuyentes = contadorDeContribuyentes + 1
+
+        
+# DNI
+        dni=input("Ingrese su D.N.I.: ")
+        dni = validar_dni(dni)
+
 # NOMBRE Y APELLIDO
         nombre=input("Ingrese su nombre: ")
         while nombre=='':
@@ -50,10 +56,6 @@ def ingresar_datos():
         apellido=input("Ingrese su apellido: ")
         while apellido=='':
             apellido=input("Por favor, ingrese su apellido para continuar: ")
-
-# DNI
-        dni=input("Ingrese su D.N.I.: ")
-        dni = validar_dni(dni)
 
 #FECHA DE NACIMIENTO
         fecha_naci=input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
@@ -158,8 +160,8 @@ def ingresar_datos():
     print(f"La fecha de declaración más lejana en el ingreso de datos es: {fecha_mas_antigua}")
     print(f"La fecha de declaración más cercana en el ingreso de datos es: {fecha_mas_reciente}")
     print(f"El menor monto declarado es de: ${menorMonto}, el mayor es de ${mayorMonto} y el promedio es de ${acumuladorDeMonto / contadorDeContribuyentes}")
-    print(f"Total bienes en Argentina: ${total_bienes_argentina:.0f}")
-    print(f"Total bienes en el exterior: ${total_bienes_exterior:.0f}")
+    print(f"Total bienes en Argentina: {total_bienes_argentina}")
+    print(f"Total bienes en el exterior: {total_bienes_exterior}")
     print(f"El porcentaje de bienes declarados en argentina es de: {porcentaje_argentina:.2f}%")
     print(f"El porcentaje de bienes declarados en el exterior es de: {procentaje_exterior:.2f}%")
     listar_mayor_y_menor_cantidad_de_fondos(rankingTipos)
