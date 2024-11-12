@@ -34,7 +34,7 @@ def ingresar_datos():
     total_bienes_argentina = 0
     total_bienes_exterior = 0 
 
-    declarado_en_arg = 'argentina'
+    declarado_en_arg = 'Argentina'
     declarado_en_exterior = 'exterior'
     # Aca termina la parte de los porcentajes declarados en argentina y en el exterior
 
@@ -116,7 +116,7 @@ def ingresar_datos():
         # Parte donde se hacen los porcentajes de los bienes declarados en argentina o en el exterior
 
 #nuevo
-        lugar_declaracion = input("Ingrese el lugar donde va a declarar los bienes, Si es Argentina debe escribir 'argentina', sino debe ingresar 'exterior': ")
+        lugar_declaracion = input("Ingrese el lugar donde va a declarar los bienes, Si es Argentina debe escribir 'Argentina', sino debe ingresar 'exterior': ")
         while lugar_declaracion != declarado_en_arg and lugar_declaracion != declarado_en_exterior:
             lugar_declaracion = input(f"El lugar de declaracion es incorrecto, para poder continuar debe ingresar {declarado_en_arg} o {declarado_en_exterior}: ")
         if lugar_declaracion == declarado_en_arg:
@@ -147,7 +147,7 @@ def ingresar_datos():
         rankingOrigen[origen-1] = rankingOrigen[origen-1] + 1
 
 
-        continuar=input("Pasa ingresar otro contribuyente ingrese siguiente o ingrese finalizar para terminar: ")
+        continuar=input("Pasa ingresar otro contribuyente ingrese siguiente o ingrese otra cosa para terminar: ")
 
 
 #PRINTS
