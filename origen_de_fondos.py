@@ -15,10 +15,13 @@ def listar_origen_fondos():
     for origen in ORIGEN_FONDOS:
         print(origen)
 
+    
+
 def validar_lista_origen(origen):
     
-    while origen<1 and origen>7:
-        origen = int(input("Opción inválida. Ingrese un número entre 1 y 7: "))
+    while origen == '' or not origen.isnumeric() or (int(origen)<1 and int(origen)>7):
+        origen = input("Opción inválida. Ingrese un número entre 1 y 7: ")
+    return int(origen)
 
 def rankear_origenes(ranking):
     copia_fondos = ORIGEN_FONDOS

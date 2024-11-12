@@ -37,9 +37,6 @@ def ingresar_datos():
     declarado_en_arg = 'argentina'
     declarado_en_exterior = 'exterior'
     # Aca termina la parte de los porcentajes declarados en argentina y en el exterior
-    print(f"TAMANIO DE RANKING {len(rankingTipos)}")
-    print(f"TAMANIO DE OPCIONES {len(TIPOS_FONDOS)}")
-
 
     continuar = 'siguiente'
 
@@ -138,14 +135,14 @@ def ingresar_datos():
 
 
         listar_tipos_fondos()
-        fondo = int(input("Ingrese el número del tipo de fondo que va a declarar: "))
-        validar_lista_tipos(fondo)
+        fondo = input("Ingrese el número del tipo de fondo que va a declarar: ")
+        fondo = validar_lista_tipos(fondo)
         print("El tipo de fondo es:", TIPOS_FONDOS[fondo-1])
         rankingTipos[fondo-1] = rankingTipos[fondo-1] + 1
 
         listar_origen_fondos()
-        origen = int(input("Ingrese el número del tipo de origen de fondo que va a declarar: "))
-        validar_lista_origen(origen)
+        origen = input("Ingrese el número del tipo de origen de fondo que va a declarar: ")
+        origen = validar_lista_origen(origen)
         print("El tipo de origen de fondo es:", ORIGEN_FONDOS[origen-1])
         rankingOrigen[origen-1] = rankingOrigen[origen-1] + 1
 

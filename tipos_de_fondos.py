@@ -17,8 +17,9 @@ def listar_tipos_fondos():
 
 def validar_lista_tipos(fondo):
     
-    while fondo<1 and fondo>7:
-        fondo = int(input("Opción inválida. Ingrese un número entre 1 y 7: "))
+    while fondo == '' or not fondo.isnumeric() or (int(fondo)<1 and int(fondo)>7):
+        fondo = input("Opción inválida. Ingrese un número entre 1 y 7: ")
+    return int(fondo)
 
 def listar_mayor_y_menor_cantidad_de_fondos(ranking):
     copia_fondos = TIPOS_FONDOS
