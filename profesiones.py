@@ -50,3 +50,5 @@ def validar_eleccion(eleccion):
     
     while eleccion<1 or eleccion>37:
         eleccion = int(input("Opción inválida. Ingrese un número entre 1 y 37: "))
+    return eleccion
+        

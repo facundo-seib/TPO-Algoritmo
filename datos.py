@@ -2,7 +2,7 @@ from fechas import validar_fecha
 from profesiones import listar_profesiones,validar_eleccion,PROFESIONES
 from tipos_origen_de_fondos import listar_origen_fondos,validar_lista_origen, TIPOS_ORIGEN_FONDOS
 from comparacion_de_fechas import retornar_fecha_mas_antigua, retornar_fecha_mas_reciente
-
+from validacion_dni import validar_dni
 def ingresar_datos():
 
     fecha_mas_antigua = None
@@ -18,6 +18,22 @@ def ingresar_datos():
     menorMonto = 0
     mayorMonto = 0
 
+    # Parte de los porcentajes declarados en argentian y en el exterior
+#nuevo
+    ContadorDeDeclaracionesArg = 0
+    ContadorDeDeclaracionesExt = 0
+
+    total_bienes_decla_argentina = 0
+    total_bienes_decla_exterior = 0 
+
+    total_bienes_argentina = 0
+    total_bienes_exterior = 0 
+
+    declarado_en_arg = 'argentina'
+    declarado_en_exterior = 'exterior'
+    # Aca termina la parte de los porcentajes declarados en argentina y en el exterior
+
+
     continuar = 'siguiente'
 
     while(continuar == 'siguiente'):
@@ -31,10 +47,12 @@ def ingresar_datos():
         while apellido=='':
             apellido=input("Por favor, ingrese su apellido para continuar: ")
 
-        dni=(input("Ingrese su D.N.I.: "))
+# nuevo
+        dni=int(input("Ingrese su D.N.I.: "))
+        dni = validar_dni(dni)
         while dni=='':
-            dni=input("Por favor, ingrese su D.N.I. para continuar: ")
-
+            dni=int(input("Por favor, ingrese su D.N.I. para continuar: "))
+            dni = validar_dni(dni)
         fecha_naci=input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
         while fecha_naci=='':
             fecha_naci=input("Por favor, ingrese su fecha de nacimiento para continuar (DD/MM/AAAA): ")
@@ -57,13 +75,13 @@ def ingresar_datos():
 #nuevo
         listar_profesiones()
         eleccion = int(input("Ingrese el número de la profesión que desea elegir: "))
-        validar_eleccion(eleccion)
-        if eleccion==37 :
+        eleccion = validar_eleccion(eleccion)
+        if eleccion == 37:
             prof_otro=input("Ingrese su profesión:")
-            print("Su profesión es: ",prof_otro)
-        elif eleccion>0 or eleccion<37:
-            print("Su profesión es: ",PROFESIONES[eleccion-1])
-
+            print("Su profesión es: ", prof_otro)
+        else:
+            print("Su profesión es: ", PROFESIONES[eleccion - 1])
+        
 
         fecha_decla=input("Ingrese la fecha de declaración (DD/MM/AAAA): ")
         validar_fecha(fecha_decla)
@@ -86,6 +104,27 @@ def ingresar_datos():
             mayorMonto = monto_decla
         acumuladorDeMonto = acumuladorDeMonto + monto_decla
 
+        # Parte donde se hacen los porcentajes de los bienes declarados en argentina o en el exterior
+
+#nuevo
+        lugar_declaracion = input("Ingrese el lugar donde va a declarar los bienes, Si es Argentina debe escribir 'argentina', sino debe ingresar 'exterior': ")
+        while lugar_declaracion != declarado_en_arg and lugar_declaracion != declarado_en_exterior:
+            lugar_declaracion = input(f"El lugar de declaracion es incorrecto, para poder continuar debe ingresar {declarado_en_arg} o {declarado_en_exterior}: ")
+        if lugar_declaracion == declarado_en_arg:
+            ContadorDeDeclaracionesArg += 1
+            total_bienes_decla_argentina = monto_decla
+            total_bienes_argentina += total_bienes_decla_argentina
+        else:
+            ContadorDeDeclaracionesExt += 1 
+            total_bienes_decla_exterior = monto_decla
+            total_bienes_exterior += total_bienes_decla_exterior
+
+        bienes_totales = total_bienes_exterior + total_bienes_argentina
+
+        porcentaje_argentina = (total_bienes_argentina / bienes_totales) * 100
+        procentaje_exterior = (total_bienes_exterior / bienes_totales) * 100
+
+
         listar_origen_fondos()
         fondo = int(input("Ingrese el número del tipo de origen de fondo que va a declarar: "))
         validar_lista_origen(fondo)
@@ -100,6 +139,13 @@ def ingresar_datos():
     print(f"La fecha de declaración más lejana en el ingreso de datos es: {fecha_mas_antigua}")
     print(f"La fecha de declaración más cercana en el ingreso de datos es: {fecha_mas_reciente}")
     print(f"El menor monto declarado es de: ${menorMonto}, el mayor es de ${mayorMonto} y el promedio es de ${acumuladorDeMonto / contadorDeContribuyentes}")
+#nuevo    
+    print(f"Total bienes en Argentina: ${total_bienes_argentina:.0f}")
+    print(f"Total bienes en el exterior: ${total_bienes_exterior:.0f}")
+    print(f"El porcentaje de bienes declarados en argentina es de: {porcentaje_argentina:.2f}%")
+    print(f"El porcentaje de bienes declarados en el exterior es de: {procentaje_exterior:.2f}%") 
+    # el activo regularizado que mas se repite es..
+    # el activo regularizado que menos se repite es..
     
 
 
