@@ -48,7 +48,19 @@ def listar_profesiones():
 #nuevo
 def validar_eleccion(eleccion):
     
-    while eleccion<1 or eleccion>37:
-        eleccion = int(input("Opción inválida. Ingrese un número entre 1 y 37: "))
-    return eleccion
+    while (eleccion=='') or (not eleccion.isnumeric()) or (int(eleccion)<1 or int(eleccion)>37):
+        eleccion = input("Opción inválida. Ingrese un número entre 1 y 37: ")
+    return int(eleccion)
         
+
+def rankear_profesiones(ranking):
+    copia_profesiones = PROFESIONES
+    n = len(ranking)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if ranking[j] < ranking[j + 1]:
+                ranking[j], ranking[j + 1] = ranking[j + 1], ranking[j]
+                copia_profesiones[j], copia_profesiones[j + 1] = copia_profesiones[j + 1], copia_profesiones[j]
+
+    for i in range(n):
+        print(f"{i + 1}. {copia_profesiones[i]} - Veces ingresada: {ranking[i]}")
