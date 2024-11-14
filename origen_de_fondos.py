@@ -1,19 +1,21 @@
 ORIGEN_FONDOS=[
-        "1. Ingresos de actividades lícitas (salarios, rentas, ganancias de inversiones)",
-        "2. Herencias o donaciones",
-        "3. Venta de activos (propiedades, bienes muebles, acciones)",
-        "4. Ahorros o fondos personales",
-        "5. Inversiones extranjeras o bienes fuera del país",
-        "6. Operaciones financieras informales o no registradas",
-        "7. Fondeo o reestructuración de deuda (préstamos, refinanciación de deudas)",
-        "8. Fondos provenientes de actividades no declaradas",
+        "Ingresos de actividades lícitas (salarios, rentas, ganancias de inversiones)",
+        "Herencias o donaciones",
+        "Venta de activos (propiedades, bienes muebles, acciones)",
+        "Ahorros o fondos personales",
+        "Inversiones extranjeras o bienes fuera del país",
+        "Operaciones financieras informales o no registradas",
+        "Fondeo o reestructuración de deuda (préstamos, refinanciación de deudas)",
+        "Fondos provenientes de actividades no declaradas",
     ]
         
 def listar_origen_fondos():
 
     print("Selecciona cuál es el origen del fondo a declarar")
+    i=1
     for origen in ORIGEN_FONDOS:
-        print(origen)
+        print(f'{i}. {origen}')
+        i = i+1
 
     
 

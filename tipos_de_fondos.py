@@ -1,19 +1,21 @@
 TIPOS_FONDOS=[
-        "1. Bienes inmuebles",
-        "2. Bienes muebles",
-        "3. Depósitos y cuentas bancarias",
-        "4. Inversiones financieras",
-        "5. Activos empresariales",
-        "6. Pesos en efectivo",
-        "7. Moneda extranjera en efectivo",
-        "8. Objetos de valor",
+        "Bienes inmuebles",
+        "Bienes muebles",
+        "Depósitos y cuentas bancarias",
+        "Inversiones financieras",
+        "Activos empresariales",
+        "Pesos en efectivo",
+        "Moneda extranjera en efectivo",
+        "Objetos de valor",
     ]
         
 def listar_tipos_fondos():
 
     print("Selecciona cuál es tu tipo de fondo a declarar")
+    i = 1
     for tipo_de_fondo in TIPOS_FONDOS:
-        print(tipo_de_fondo)
+        print(f'{i}. {tipo_de_fondo}')
+        i = i+1
 
 def validar_lista_tipos(fondo):
     

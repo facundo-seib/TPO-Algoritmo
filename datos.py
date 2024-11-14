@@ -5,6 +5,8 @@ from origen_de_fondos import listar_origen_fondos,validar_lista_origen, ORIGEN_F
 from comparacion_de_fechas import retornar_fecha_mas_antigua, retornar_fecha_mas_reciente
 from otras_validaciones import validar_dni, validar_monto
 def ingresar_datos():
+    contribuyentes = []
+    contribuyentes_dni = []
 
     fecha_mas_antigua = None
     fecha_mas_reciente = None
@@ -38,30 +40,37 @@ def ingresar_datos():
     declarado_en_exterior = 'exterior'
     # Aca termina la parte de los porcentajes declarados en argentina y en el exterior
 
-    continuar = 'siguiente'
+    continuar = 'y'
 
-    while(continuar == 'siguiente'):
+    while(continuar == 'y'):
         contadorDeContribuyentes = contadorDeContribuyentes + 1
-
+        contribuyente_actual = '\n'
         
-# DNI
-        dni=input("Ingrese su D.N.I.: ")
-        dni = validar_dni(dni)
 
 # NOMBRE Y APELLIDO
         nombre=input("Ingrese su nombre: ")
         while nombre=='':
             nombre=input("Por favor, ingrese su nombre para continuar: ")
+        contribuyente_actual = contribuyente_actual + 'Nombre: ' +  nombre + '\n'
 
         apellido=input("Ingrese su apellido: ")
         while apellido=='':
             apellido=input("Por favor, ingrese su apellido para continuar: ")
+        contribuyente_actual = contribuyente_actual + 'Apellido: ' +  apellido + '\n'
+
+# DNI
+        dni=input("Ingrese su D.N.I.: ")
+        dni = validar_dni(dni)
+        contribuyentes_dni.append(dni)
+        contribuyente_actual = contribuyente_actual + 'DNI: ' +  dni + '\n'
+
 
 #FECHA DE NACIMIENTO
         fecha_naci=input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
         while fecha_naci=='':
             fecha_naci=input("Por favor, ingrese su fecha de nacimiento para continuar (DD/MM/AAAA): ")
         validar_fecha(fecha_naci)
+        contribuyente_actual = contribuyente_actual + 'Fecha de nacimiento: ' +  fecha_naci + '\n'
 
 #EDAD
         edad=input("Ingrese su edad: ")
@@ -69,8 +78,8 @@ def ingresar_datos():
             edad=input("Por favor, ingrese su edad para continuar: ")
         while not edad.isnumeric():
             edad=input("Por favor, ingrese su edad en numeros para continuar: ")
-        edad=int(edad)
-            
+        contribuyente_actual = contribuyente_actual + 'Edad: ' +  edad + '\n'
+        edad = int(edad)
         if edad<17:
             edad=int(input("No puede declarar siendo menor de edad. Intentelo de nuevo: "))
         if menorEdad == 0 or menorEdad > edad:
@@ -86,8 +95,11 @@ def ingresar_datos():
         if eleccion == 37:
             prof_otro=input("Ingrese su profesión:")
             print("Su profesión es: ", prof_otro)
+            contribuyente_actual = contribuyente_actual + 'Profesión: ' +  prof_otro + '\n'
         else:
             print("Su profesión es: ", PROFESIONES[eleccion - 1])
+            contribuyente_actual = contribuyente_actual + 'Profesión: ' +  PROFESIONES[eleccion - 1] + '\n'
+
         rankingProfesiones[eleccion-1] = rankingProfesiones[eleccion-1] + 1
         
 #FECHA DECLARACION
@@ -96,6 +108,8 @@ def ingresar_datos():
             fecha_decla=input("La fecha de declaracion no puede estar vacia. Vuelva a intentarlo (DD/MM/AAAA): ")
 
         validar_fecha(fecha_decla)
+        contribuyente_actual = contribuyente_actual + 'Fecha de declaracion: ' +  fecha_decla + '\n'
+
         if fecha_mas_antigua == None:
             fecha_mas_antigua = fecha_decla
         else:
@@ -109,6 +123,9 @@ def ingresar_datos():
 #MONTO
         monto_decla=input("Ingrese el monto a declarar: ")
         monto_decla = validar_monto(monto_decla)
+        contribuyente_actual = contribuyente_actual + 'Monto: $' +  monto_decla + '\n'
+
+        monto_decla = float(monto_decla)
         if menorMonto == 0 or menorMonto > monto_decla:
             menorMonto = monto_decla
         if mayorMonto < monto_decla:
@@ -121,6 +138,8 @@ def ingresar_datos():
         lugar_declaracion = input("Ingrese el lugar donde va a declarar los bienes, Si es Argentina debe escribir 'Argentina', sino debe ingresar 'exterior': ")
         while lugar_declaracion != declarado_en_arg and lugar_declaracion != declarado_en_exterior:
             lugar_declaracion = input(f"El lugar de declaracion es incorrecto, para poder continuar debe ingresar {declarado_en_arg} o {declarado_en_exterior}: ")
+        contribuyente_actual = contribuyente_actual + 'Lugar de declaracion: ' +  lugar_declaracion + '\n'
+
         if lugar_declaracion == declarado_en_arg:
             ContadorDeDeclaracionesArg += 1
             total_bienes_decla_argentina = monto_decla
@@ -140,17 +159,42 @@ def ingresar_datos():
         fondo = input("Ingrese el número del tipo de fondo que va a declarar: ")
         fondo = validar_lista_tipos(fondo)
         print("El tipo de fondo es:", TIPOS_FONDOS[fondo-1])
+        contribuyente_actual = contribuyente_actual + 'Tipo de fondo: ' +  TIPOS_FONDOS[fondo-1] + '\n'
         rankingTipos[fondo-1] = rankingTipos[fondo-1] + 1
 
         listar_origen_fondos()
         origen = input("Ingrese el número del tipo de origen de fondo que va a declarar: ")
         origen = validar_lista_origen(origen)
         print("El tipo de origen de fondo es:", ORIGEN_FONDOS[origen-1])
+        contribuyente_actual = contribuyente_actual + 'Origen de fondos: ' +  ORIGEN_FONDOS[origen-1] + '\n'
+
         rankingOrigen[origen-1] = rankingOrigen[origen-1] + 1
+        contribuyentes.append(contribuyente_actual)
+        continuar=input("Desea ingresar otro contribuyente? (y/n): ")
+        print('\n\n')
 
+    busqueda=input("Desea buscar un contribuyente por DNI? (y/n): ")
 
-        continuar=input("Pasa ingresar otro contribuyente ingrese siguiente o ingrese otra cosa para terminar: ")
+    if busqueda == 'y':
+        while busqueda == 'y':
+            dni_a_buscar = input("Ingrese el DNI del contribuyente a buscar: ")
+            array_search_done = False
+            contribuyente_encontrado = False
+            i = len(contribuyentes_dni)-1
+            while not array_search_done: 
+                if contribuyentes_dni[i] == dni_a_buscar:
+                    array_search_done = True
+                    contribuyente_encontrado = contribuyentes[i]
+                else:
+                    i = i-1
+                
+                if i == -1:
+                    contribuyente_encontrado = "No se encontro el contribuyente solicitado"
+                    array_search_done = True
+            print(contribuyente_encontrado)
+            busqueda=input("Desea buscar otro contribuyente por DNI? (y/n): ")
 
+                
 
 #PRINTS
     print(f"La cantidad de personas registradas en el proceso fueron: {contadorDeContribuyentes}") 
@@ -160,8 +204,8 @@ def ingresar_datos():
     print(f"La fecha de declaración más lejana en el ingreso de datos es: {fecha_mas_antigua}")
     print(f"La fecha de declaración más cercana en el ingreso de datos es: {fecha_mas_reciente}")
     print(f"El menor monto declarado es de: ${menorMonto}, el mayor es de ${mayorMonto} y el promedio es de ${acumuladorDeMonto / contadorDeContribuyentes}")
-    print(f"Total bienes en Argentina: {total_bienes_argentina}")
-    print(f"Total bienes en el exterior: {total_bienes_exterior}")
+    print(f"Total bienes en Argentina: {ContadorDeDeclaracionesArg}")
+    print(f"Total bienes en el exterior: {ContadorDeDeclaracionesExt}")
     print(f"El porcentaje de bienes declarados en argentina es de: {porcentaje_argentina:.2f}%")
     print(f"El porcentaje de bienes declarados en el exterior es de: {procentaje_exterior:.2f}%")
     listar_mayor_y_menor_cantidad_de_fondos(rankingTipos)
@@ -172,9 +216,6 @@ def ingresar_datos():
     print('')
     print("\033[1mRANKING DE FONDOS\033[0m")
     rankear_origenes(rankingOrigen)
-
-    # el activo regularizado que mas se repite es..
-    # el activo regularizado que menos se repite es..
     
 
 

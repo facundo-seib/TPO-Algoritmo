@@ -20,5 +20,3 @@ def validar_fecha(fecha):
         mes=int(fecha_a_validar[3:5])
         año=int(fecha_a_validar[6:10])
     return fecha_a_validar
-
-#com
